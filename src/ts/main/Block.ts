@@ -49,4 +49,8 @@ class Block {
     public setLives(lives: number) {
         this.lives = lives;
     }
+
+    public getLives(): number {
+        return this.lives;y
+    }
 }
