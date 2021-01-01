@@ -1,6 +1,6 @@
-/**
+///**
 class Main {
-    Example for the use of Block
+    // Example for the use of Block
     public static main(): void {
         const block = new Block(300, 300, 20, 20, "red", 100);
         const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
@@ -13,8 +13,10 @@ class Main {
             }
         }
         console.log(block.isTouching(310, 309, 1));
+        block.subLives(10);
+        console.log(block);
     }
     
 }
 Main.main();
-*/
+// */
