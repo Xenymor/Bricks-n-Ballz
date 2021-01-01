@@ -4,13 +4,15 @@ class Block {
     private width: number;
     private height: number;
     private color: string;
+    private lives: number;
 
-    constructor(x: number, y: number, width: number, height: number, color:string) {
+    constructor(x: number, y: number, width: number, height: number, color: string, lives: number) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
+        this.lives = lives;
     }
 
     public isTouching(x: number, y: number, radius: number): boolean {
@@ -35,8 +37,16 @@ class Block {
         return this.height;
     }
 
-    public draw(context:CanvasRenderingContext2D): void {
+    public draw(context: CanvasRenderingContext2D): void {
         context.fillStyle = this.color;
         context.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    public subLives(toSub: number): void {
+        this.lives -= toSub;
+    }
+
+    public setLives(lives: number) {
+        this.lives = lives;
     }
 }
