@@ -51,6 +51,6 @@ class Block {
     }
 
     public getLives(): number {
-        return this.lives;y
+        return this.lives;
     }
 }
