@@ -35,17 +35,16 @@ class Level {
     private checkCollision() {
         let indexes: List<number> = new List();
         this.balls.forEach((ball) => {
-            this.blocks.forEach((block) => {
+            this.blocks.forEach((block, index) => {
                 block.collideBall(ball);
                 if (block.getLives() <= 0) {
-                    indexes.add(this.blocks.indexOf(block));
+                    indexes.add(index);
                 }
             });
             ball.collideBox(0, 0, 600, 600);
         });
         for (let i: number = indexes.size() - 1; i >= 0; i--) {
-            this.blocks.splice(indexes.get(i), 1);
-            //            this.blocks = this.blocks.slice(0, i).concat(this.blocks.slice(-i));
+            delete this.blocks[indexes.get(i)];
         }
     }
 
