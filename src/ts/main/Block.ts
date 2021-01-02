@@ -25,8 +25,13 @@ class Block {
 
         const collides = (deltaX * deltaX + deltaY * deltaY) < (radius * radius);
         if (collides) {
-            if (deltaX > 0 && deltaY <= 0) {
-                
+            if (x <= this.x + this.width && x >= this.x) {
+                ball.negateXVel();
+            } else if (y <= this.y + this.height && y >= this.y) {
+                ball.negateYVel();
+            } else {
+                ball.negateXVel();
+                ball.negateYVel();
             }
         }
     }

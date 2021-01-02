@@ -4,7 +4,7 @@ class Ball {
     private radius: number;
     private color: string;
 
-    constructor(velocity: Vector2, x: number, y: number, radius: number, color:string) {
+    constructor(velocity: Vector2, x: number, y: number, radius: number, color: string) {
         this.velocity = velocity;
         this.pos = new Vector2(x, y);
         this.radius = radius;
@@ -38,8 +38,16 @@ class Ball {
     public draw(context: CanvasRenderingContext2D): void {
         context.fillStyle = this.color;
         context.beginPath();
-        context.ellipse(this.pos.getX()+this.radius, this.pos.getY()+this.radius, this.radius, this.radius, 0, 0, 2*Math.PI);
+        context.ellipse(this.pos.getX(), this.pos.getY(), this.radius, this.radius, 0, 0, 2 * Math.PI);
         context.fill();
+    }
+
+    negateXVel(): void {
+        this.velocity.setX(-this.velocity.getX());
+    }
+
+    negateYVel(): void {
+        this.velocity.setY(-this.velocity.getY());
     }
 
     public move(): void {
