@@ -50,7 +50,8 @@ class Ball {
         this.velocity.setY(-this.velocity.getY());
     }
 
-    public move(): void {
-        this.pos.add(this.velocity.getX(), this.velocity.getY());
+    public move(ratio: number): void {
+        this.pos.add(this.velocity.getX() * ratio, this.velocity.getY() * ratio);
+        console.log(this.pos.getX());
     }
 }

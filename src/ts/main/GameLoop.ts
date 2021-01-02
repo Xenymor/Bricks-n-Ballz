@@ -6,7 +6,9 @@ class GameLoop {
 
     private initIntervall(): void {
         setInterval(() => {
-            this.level.move(1/100);
+            this.level.draw(this.context);
+            this.level.move(0.1);
+            console.log("Hi");
         }, 10);
     }
 

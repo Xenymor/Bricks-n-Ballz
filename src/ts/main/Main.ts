@@ -45,9 +45,6 @@ class Main {
         }
     }
 }
-function start() {
-    Main.main();
-}
 */
 // */
 
@@ -58,8 +55,12 @@ class Main2 {
 
         const levelGenerator = new LevelGenerator();
         const level: Level = levelGenerator.parse(levels[0]);
+        level.addBall(new Ball(new Vector2(-10, -10), 440, 600, 5, "gold"));
         level.draw(context);
+        const game = new GameLoop(level, context);
     }
 }
 
-Main2.main();
+function start() {
+    Main2.main();
+}
