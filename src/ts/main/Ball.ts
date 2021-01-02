@@ -54,4 +54,14 @@ class Ball {
         this.pos.add(this.velocity.getX() * ratio, this.velocity.getY() * ratio);
         console.log(this.pos.getX());
     }
+
+    public collideBox(minX: number, minY: number, maxX: number, maxY: number) {
+        const x = this.pos.getX();
+        const y = this.pos.getY();
+        const velX = this.velocity.getX();
+        const velY = this.velocity.getY();
+        if ((x < minX && velX < 0) || (x > maxX && velX > 0)) {
+            this.negateXVel();
+        }
+    }
 }

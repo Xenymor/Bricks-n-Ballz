@@ -1,3 +1,5 @@
+const FINE_GRAIN = 10;
+
 class Level {
 
     private blocks: Block[] = [];
@@ -22,10 +24,12 @@ class Level {
     }
 
     public move(ratio: number): void {
-        this.balls.forEach((ball) => {
-            ball.move(ratio);
-        });
-        this.checkCollision();
+        for (let i=0; i<FINE_GRAIN; i++) { 
+            this.balls.forEach((ball) => {
+                ball.move(ratio / FINE_GRAIN);
+            });
+            this.checkCollision();
+        }
     }
 
     private checkCollision() {
@@ -37,6 +41,7 @@ class Level {
                     indexes.add(this.blocks.indexOf(block));
                 }
             });
+            ball.collideBox(0, 0, 600, 600);
         });
         for (let i:number = indexes.size(); i > 0; i--) {
             this.blocks.slice(indexes.get(i)+1)
