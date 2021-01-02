@@ -36,6 +36,14 @@ class Vector2 {
         this.x -= x;
         this.y -= y;
     }
+    public subVector(v: Vector2) {
+        this.x -= v.x;
+        this.y -= v.y;
+    }
+    public addVector(v: Vector2) {
+        this.x += v.x;
+        this.y += v.y;
+    }
     public mult(multWith: number) {
         this.x *= multWith;
         this.y *= multWith;

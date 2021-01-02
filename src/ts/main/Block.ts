@@ -40,7 +40,15 @@ class Block {
     }
 
     private collideCorner(ball: Ball, deltaX: number, deltaY: number): void {
-        
+        const mirrorAxe = new Vector2(deltaX, deltaY);
+        mirrorAxe.clamp(1);
+        const vel = ball.getVelocity();
+        vel.mult(-1);
+        const projectedLen = mirrorAxe.multVector(vel);
+        mirrorAxe.mult(projectedLen);
+        mirrorAxe.subVector(vel);
+        vel.addVector(mirrorAxe);
+        vel.clamp(BALLSPEED);
     }
 
     public isTouchingBall(ball: Ball): boolean {
