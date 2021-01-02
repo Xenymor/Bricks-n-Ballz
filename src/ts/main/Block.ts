@@ -25,6 +25,7 @@ class Block {
 
         const collides = (deltaX * deltaX + deltaY * deltaY) < (radius * radius);
         if (collides) {
+            ball.moveBack();
             if (x <= this.x + this.width && x >= this.x) {
                 ball.negateYVel();
             } else if (y <= this.y + this.height && y >= this.y) {

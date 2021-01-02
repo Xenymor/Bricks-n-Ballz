@@ -2,6 +2,11 @@ class Vector2 {
     private x: number;
     private y: number;
 
+    public copyFrom(other: Vector2): void {
+        this.x = other.x;
+        this.y = other.y;
+    }
+
     public getX(): number {
         return this.x;
     }

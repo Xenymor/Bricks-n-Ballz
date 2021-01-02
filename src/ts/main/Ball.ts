@@ -1,12 +1,14 @@
 class Ball {
     private velocity: Vector2;
     private pos: Vector2;
+    private lastPos: Vector2;
     private radius: number;
     private color: string;
 
     constructor(velocity: Vector2, x: number, y: number, radius: number, color: string) {
         this.velocity = velocity;
         this.pos = new Vector2(x, y);
+        this.lastPos = new Vector2(x, y);
         this.radius = radius;
         this.color = color;
     }
@@ -51,8 +53,12 @@ class Ball {
     }
 
     public move(ratio: number): void {
+        this.lastPos.copyFrom(this.pos);
         this.pos.add(this.velocity.getX() * ratio, this.velocity.getY() * ratio);
-        console.log(this.pos.getX());
+    }
+
+    public moveBack(): void {
+        this.pos.copyFrom(this.lastPos);
     }
 
     public collideBox(minX: number, minY: number, maxX: number, maxY: number) {
