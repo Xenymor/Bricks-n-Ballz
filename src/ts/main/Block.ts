@@ -31,13 +31,17 @@ class Block {
             } else if (y <= this.y + this.height && y >= this.y) {
                 ball.negateXVel();
             } else {
-                ball.negateXVel();
-                ball.negateYVel();
+                this.collideCorner(ball, deltaX, deltaY);
+                // ball.negateXVel();
+                // ball.negateYVel();
             }
             this.subLives(1);
         }
     }
 
+    private collideCorner(ball: Ball, deltaX: number, deltaY: number): void {
+        
+    }
 
     public isTouchingBall(ball: Ball): boolean {
         return this.isTouching(ball.getPos().getX(), ball.getPos().getY(), ball.getRadius());
