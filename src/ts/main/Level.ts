@@ -23,7 +23,7 @@ class Level {
 
     public move(ratio: number): void {
         this.balls.forEach((ball) => {
-            ball.move();
+            ball.move(ratio);
         });
         this.checkCollision();
     }
