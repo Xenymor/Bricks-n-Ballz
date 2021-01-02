@@ -1,4 +1,5 @@
 const BALLSPEED = 400;
+let magazinSize = 50;
 /*
     ///**
 class Main {
@@ -67,18 +68,9 @@ class Main2 {
         const y = event.clientY;
         const posX = 300;
         const posY = 599;
-        this.launchBall(posX, posY, x, y, 50);
-    }
-    
-    private static launchBall(posX: number, posY: number, x: number, y: number, count: number): void {
         let vel:Vector2 = new Vector2(x-posX, y-posY);
         vel.clamp(BALLSPEED);
-        Main2.level.addBall(new Ball(vel, posX, posY, 5, "gold"));
-        if (count > 0) {
-            setTimeout(() => {
-                this.launchBall(posX, posY, x, y, count-1);
-            }, 100);
-        }
+        this.level.addBall(new Ball(vel, posX, posY, 5, "gold"));
     }
 }
 
