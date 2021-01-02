@@ -1,7 +1,7 @@
 const MIN_CHAR_VAL = "1".charCodeAt(0);
 const MAX_CHAR_VAL = "9".charCodeAt(0);
-const BLOCK_WIDTH = 16;
-const BLOCK_HEIGHT = 16;
+const BLOCK_WIDTH = 30;
+const BLOCK_HEIGHT = 30;
 const blockColors = ["darkgreen", "green", "lightgreen", "goldenrod", "gold", "yellow",  "orange", "orangered", "FireBrick", "red", "red"];
 
 class LevelGenerator {
