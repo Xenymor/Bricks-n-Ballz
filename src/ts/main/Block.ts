@@ -34,9 +34,6 @@ class Block {
                 ball.negateYVel();
             }
             this.subLives(1);
-            if (this.lives = 0) {
-                
-            }
         }
     }
 
