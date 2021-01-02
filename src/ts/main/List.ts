@@ -13,7 +13,7 @@ class List<T> {
         this.items.push(value);
     }
 
-    get(index: number): T {
+    get(index: number): T { 
         return this.items[index];
     }
 
