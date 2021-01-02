@@ -55,6 +55,10 @@ class Ball {
     public move(ratio: number): void {
         this.lastPos.copyFrom(this.pos);
         this.pos.add(this.velocity.getX() * ratio, this.velocity.getY() * ratio);
+        if (this.pos.getY() > 599) {
+            bullets++;
+            Main2.level.removeBall(this);
+        }
     }
 
     public moveBack(): void {
