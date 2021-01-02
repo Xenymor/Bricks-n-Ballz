@@ -9,6 +9,9 @@ class GameLoop {
             this.context.clearRect(0, 0, 600, 600);
             this.level.draw(this.context);
             this.level.move(0.02);
+/*            if (!this.level.hasBlocksLeft()) {
+                this.level = new LevelGenerator();
+            }*/
         }, 20);
     }
 }

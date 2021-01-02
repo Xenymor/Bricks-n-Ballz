@@ -13,8 +13,12 @@ class Level {
         this.blocks.sort((a, b) => a.getX() - b.getX());
     }
 
-    public removeBall(ball:Ball) {
+    public removeBall(ball: Ball) {
         delete this.balls[this.balls.indexOf(ball)];
+    }
+
+    public hasBlocksLeft(): boolean {
+        return this.blocks.length > 0;
     }
 
     public addBall(ball: Ball): void {
