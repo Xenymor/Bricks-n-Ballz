@@ -2,12 +2,13 @@ class Ball {
     private velocity: Vector2;
     private pos: Vector2;
     private radius: number;
-    
+    private color: string;
 
-    constructor(velocity: Vector2, x: number, y: number, radius: number) {
+    constructor(velocity: Vector2, x: number, y: number, radius: number, color:string) {
         this.velocity = velocity;
         this.pos = new Vector2(x, y);
         this.radius = radius;
+        this.color = color;
     }
 
     public getVelocity(): Vector2 {
@@ -22,7 +23,7 @@ class Ball {
         return this.pos;
     }
 
-    public setPos(x:number, y:number): void {
+    public setPos(x: number, y: number): void {
         this.pos = new Vector2(x, y);
     }
 
@@ -34,5 +35,14 @@ class Ball {
         this.radius = radius;
     }
 
-    
+    public draw(context: CanvasRenderingContext2D): void {
+        context.fillStyle = this.color;
+        context.beginPath();
+        context.ellipse(this.pos.getX()+this.radius, this.pos.getY()+this.radius, this.radius, this.radius, 0, 0, 2*Math.PI);
+        context.fill();
+    }
+
+    public move(): void {
+        this.pos.add(this.velocity.getX(), this.velocity.getY());
+    }
 }

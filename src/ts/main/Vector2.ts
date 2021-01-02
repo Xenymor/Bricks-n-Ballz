@@ -22,6 +22,7 @@ class Vector2 {
         this.x = x;
         this.y = y;
     }
+    
     public add(x: number, y: number) {
         this.x += x;
         this.y += y;
