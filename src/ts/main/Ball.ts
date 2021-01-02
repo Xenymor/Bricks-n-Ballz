@@ -55,17 +55,16 @@ class Ball {
     public move(ratio: number): void {
         this.lastPos.copyFrom(this.pos);
         this.pos.add(this.velocity.getX() * ratio, this.velocity.getY() * ratio);
-        if (this.pos.getY() > 599) {
-            bullets++;
-            Main2.level.removeBall(this);
-        }
     }
 
     public moveBack(): void {
         this.pos.copyFrom(this.lastPos);
     }
 
-    public collideBox(minX: number, minY: number, maxX: number, maxY: number) {
+    /**
+     *  returns true if this needs to be removed, because it left the box at the bottom.
+     */
+    public collideBox(minX: number, minY: number, maxX: number, maxY: number): boolean {
         const x = this.pos.getX();
         const y = this.pos.getY();
         const velX = this.velocity.getX();
@@ -73,8 +72,12 @@ class Ball {
         if ((x < minX && velX < 0) || (x > maxX && velX > 0)) {
             this.negateXVel();
         }
-        if ((y < minY && velY < 0) || (y > maxY && velY > 0)) {
+        if (y < minY && velY < 0) {
             this.negateYVel();
         }
+        if (y > maxY && velY > 0) {
+            return true;
+        }
+        return false;
     }
 }

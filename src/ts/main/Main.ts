@@ -53,38 +53,19 @@ class Main {
 // */
 
 class Main2 {
-    static level: Level;
+    static game: GameLoop;
     public static main(): void {
         const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
         let context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-        const levelGenerator = new LevelGenerator();
-        this.level = levelGenerator.parse(levels[0]);
-        //        this.level.addBall(new Ball(new Vector2(-100, -100), 440, 600, 5, "gold"));
-        this.level.draw(context);
-        const game = new GameLoop(this.level, context);
+        const levelGenerator = new LevelGenerator(levels);
+        Main2.game = new GameLoop(levelGenerator, context);
     }
     public static canvasClicked(event: any) {
         console.log("Hallo");
         const x = event.clientX;
         const y = event.clientY;
-        const posX = 300;
-        const posY = 599;
-        if (bullets >= magazinesize && mayLaunchBalls) {
-            this.launchBall(posX, posY, x, y, magazinesize-1);
-        }
-    }
-
-    private static launchBall(posX: number, posY: number, x: number, y: number, count: number): void {
-        let vel: Vector2 = new Vector2(x - posX, y - posY);
-        vel.clamp(BALLSPEED);
-        Main2.level.addBall(new Ball(vel, posX, posY, 5, "gold"));
-        bullets--;
-        if (count > 0) {
-            setTimeout(() => {
-                this.launchBall(posX, posY, x, y, count - 1);
-            }, 100);
-        }
+        Main2.game.clicked(x, y);
     }
 }
 

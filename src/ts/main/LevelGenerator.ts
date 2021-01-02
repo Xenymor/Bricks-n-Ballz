@@ -6,10 +6,20 @@ const blockColors = ["darkgreen", "green", "lightgreen", "goldenrod", "gold", "y
 
 class LevelGenerator {
 
-        constructor() {
+    private levelCount = 0;
+
+    constructor(private levelData: string[][]) {
     }
 
-    public parse(lines: string[]): Level {
+    public reset(): void {
+        this.levelCount = 0;
+    }
+    public hasNext(): boolean {
+        return this.levelCount < this.levelData.length;
+    }
+
+    public getNextLevel(): Level {
+        let lines = this.levelData[this.levelCount++];
         const level = new Level();
 
         lines.forEach((line, j) => {

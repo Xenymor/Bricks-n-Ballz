@@ -49,7 +49,10 @@ class Level {
                     indexes.add(index);
                 }
             });
-            ball.collideBox(0, 0, 600, 600);
+            let mustBeRemoved = ball.collideBox(0, 0, 600, 600);
+            if (mustBeRemoved) {
+                this.removeBall(ball);
+            }
         });
         for (let i: number = indexes.size() - 1; i >= 0; i--) {
             delete this.blocks[indexes.get(i)];
