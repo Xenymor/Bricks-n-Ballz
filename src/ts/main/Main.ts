@@ -1,8 +1,10 @@
 /*
+    ///**
+class Main {
     // Example for the use of Block
 class Main {
     public static main(): void {
-        const block = new Block(300, 300, 40, 40, "red", 100);
+        const block = new Block(300, 300, 20, 20, "red", 100);
         const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
         if (canvas != null) {
             const context = canvas.getContext("2d");
@@ -16,7 +18,7 @@ class Main {
         block.subLives(10);
         console.log(block);
     }
-    
+     
 }
 Main.main();
 */
@@ -47,3 +49,17 @@ function start() {
     Main.main();
 }
 */
+// */
+
+class Main2 {
+    public static main(): void {
+        const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
+        let context = canvas.getContext("2d") as CanvasRenderingContext2D;
+
+        const levelGenerator = new LevelGenerator();
+        const level: Level = levelGenerator.parse(levels[0]);
+        level.draw(context);
+    }
+}
+
+Main2.main();

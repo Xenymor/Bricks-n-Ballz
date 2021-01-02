@@ -16,4 +16,8 @@ class Level {
         this.balls.sort((a,b) => a.getPos().getX() - b.getPos().getX());
     }
 
+    public draw(context: CanvasRenderingContext2D): void {
+        this.blocks.forEach((block) => block.draw(context));
+    }
+
 }
