@@ -15,6 +15,27 @@ class Block {
         this.lives = lives;
     }
 
+    public collideBall(ball: Ball): void {
+        const x = ball.getPos().getX();
+        const y = ball.getPos().getY();
+        const radius = ball.getRadius();
+
+        const deltaX: number = x - Math.max(this.x, Math.min(x, this.x + this.width));
+        const deltaY: number = y - Math.max(this.y, Math.min(y, this.y + this.height));
+
+        const collides = (deltaX * deltaX + deltaY * deltaY) < (radius * radius);
+        if (collides) {
+            if (deltaX > 0 && deltaY <= 0) {
+                
+            }
+        }
+    }
+
+
+    public isTouchingBall(ball: Ball): boolean {
+        return this.isTouching(ball.getPos().getX(), ball.getPos().getY(), ball.getRadius());
+    }
+
     public isTouching(x: number, y: number, radius: number): boolean {
         const deltaX: number = x - Math.max(this.x, Math.min(x, this.x + this.width));
         const deltaY: number = y - Math.max(this.y, Math.min(y, this.y + this.height));

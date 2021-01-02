@@ -18,6 +18,22 @@ class Level {
 
     public draw(context: CanvasRenderingContext2D): void {
         this.blocks.forEach((block) => block.draw(context));
+        this.balls.forEach((ball) => ball.draw(context));
+    }
+
+    public move(ratio: number): void {
+        this.balls.forEach((ball) => {
+            ball.move();
+        });
+        this.checkCollision();
+    }
+
+    private checkCollision() {
+        this.balls.forEach((ball) => {
+            this.blocks.forEach((block) => {
+                block.collideBall(ball);
+            });
+        });
     }
 
 }
