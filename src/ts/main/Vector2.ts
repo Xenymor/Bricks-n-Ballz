@@ -42,4 +42,7 @@ class Vector2 {
     public length(): number {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
+    public multVector(multwith: Vector2): number {
+        return this.x * multwith.getX() + this.y * multwith.getY();
+    }
 }
