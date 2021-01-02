@@ -24,7 +24,7 @@ class Level {
     }
 
     public move(ratio: number): void {
-        for (let i=0; i<FINE_GRAIN; i++) { 
+        for (let i = 0; i < FINE_GRAIN; i++) {
             this.balls.forEach((ball) => {
                 ball.move(ratio / FINE_GRAIN);
             });
@@ -43,8 +43,9 @@ class Level {
             });
             ball.collideBox(0, 0, 600, 600);
         });
-        for (let i:number = indexes.size(); i > 0; i--) {
-            this.blocks.slice(indexes.get(i)+1)
+        for (let i: number = indexes.size() - 1; i >= 0; i--) {
+            this.blocks.splice(indexes.get(i), 1);
+            //            this.blocks = this.blocks.slice(0, i).concat(this.blocks.slice(-i));
         }
     }
 

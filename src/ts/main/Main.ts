@@ -49,15 +49,25 @@ class Main {
 // */
 
 class Main2 {
+    private static level:Level;
     public static main(): void {
         const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
         let context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
         const levelGenerator = new LevelGenerator();
-        const level: Level = levelGenerator.parse(levels[0]);
-        level.addBall(new Ball(new Vector2(-100, -100), 440, 600, 5, "gold"));
-        level.draw(context);
-        const game = new GameLoop(level, context);
+        this.level = levelGenerator.parse(levels[0]);
+//        this.level.addBall(new Ball(new Vector2(-100, -100), 440, 600, 5, "gold"));
+        this.level.draw(context);
+        const game = new GameLoop(this.level, context);
+    }
+    public static canvasClicked(event: any) {
+        console.log("Hallo");
+        const x = event.clientX;
+        const y = event.clientY;
+        const posX = 300;
+        const posY = 599;
+        const vel:Vector2 = new Vector2(x-posX, y-posY);
+        this.level.addBall(new Ball(vel, posX, posY, 5, "gold"));
     }
 }
 
