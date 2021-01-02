@@ -1,3 +1,4 @@
+const BALLSPEED = 400;
 /*
     ///**
 class Main {
@@ -66,7 +67,8 @@ class Main2 {
         const y = event.clientY;
         const posX = 300;
         const posY = 599;
-        const vel:Vector2 = new Vector2(x-posX, y-posY);
+        let vel:Vector2 = new Vector2(x-posX, y-posY);
+        vel.clamp(BALLSPEED);
         this.level.addBall(new Ball(vel, posX, posY, 5, "gold"));
     }
 }

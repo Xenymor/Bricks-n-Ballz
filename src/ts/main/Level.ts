@@ -44,7 +44,8 @@ class Level {
             ball.collideBox(0, 0, 600, 600);
         });
         for (let i: number = indexes.size() - 1; i >= 0; i--) {
-            this.blocks.splice(indexes.get(i), 1);
+            delete this.blocks[indexes.get(i)];
+//            this.blocks.splice(indexes.get(i), 1);
             //            this.blocks = this.blocks.slice(0, i).concat(this.blocks.slice(-i));
         }
     }

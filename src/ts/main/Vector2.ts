@@ -22,7 +22,7 @@ class Vector2 {
         this.x = x;
         this.y = y;
     }
-    
+
     public add(x: number, y: number) {
         this.x += x;
         this.y += y;
@@ -31,8 +31,15 @@ class Vector2 {
         this.x -= x;
         this.y -= y;
     }
-    public mult(multWith:number) {
+    public mult(multWith: number) {
         this.x *= multWith;
         this.y *= multWith;
+    }
+    public clamp(clamp: number): void {
+        this.x = this.x * clamp / this.length();
+        this.y = this.y * clamp / this.length();
+    }
+    public length(): number {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
     }
 }
