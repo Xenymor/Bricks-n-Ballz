@@ -63,5 +63,8 @@ class Ball {
         if ((x < minX && velX < 0) || (x > maxX && velX > 0)) {
             this.negateXVel();
         }
+        if ((y < minY && velY < 0) || (y > maxY && velY > 0)) {
+            this.negateYVel();
+        }
     }
 }
