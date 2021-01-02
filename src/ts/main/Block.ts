@@ -40,6 +40,11 @@ class Block {
     public draw(context: CanvasRenderingContext2D): void {
         context.fillStyle = this.color;
         context.fillRect(this.x, this.y, this.width, this.height);
+        context.fillStyle = "white";
+        context.font = (this.height-this.height/8*3).toFixed(99) + "px Arial";
+        context.fillText(this.lives.toString(), this.x+this.width/8, this.y + this.height/8*6, this.width/2+this.width/4);
+        context.strokeStyle = "white";
+        context.strokeRect(this.x, this.y, this.width, this.height);
     }
 
     public subLives(toSub: number): void {
