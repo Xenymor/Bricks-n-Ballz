@@ -11,7 +11,7 @@ class GameLoop {
     private level: Level;
     private gamePhase: GamePhase = GamePhase.SHOOT;
     private intervallHandle: number = -1;
-    private mousePos:Vector2 = new Vector2(0, 0);
+    private mousePos: Vector2 = new Vector2(0, 0);
 
     constructor(private levelGenerator: LevelGenerator, private context: CanvasRenderingContext2D) {
         this.level = levelGenerator.getNextLevel();
@@ -24,7 +24,7 @@ class GameLoop {
         }, 20);
     }
 
-    public mouseMoved(x:number, y:number) :void {
+    public mouseMoved(x: number, y: number): void {
         this.mousePos = new Vector2(x, y);
     }
 
@@ -59,13 +59,21 @@ class GameLoop {
         this.context.clearRect(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
         this.level.draw(this.context);
         this.level.move(0.02);
-        
+        if (this.gamePhase == GamePhase.GAME_OVER) {
+            this.context.fillStyle = "white";
+            this.context.font = (30).toFixed(99) + "px Arial";
+            this.context.strokeStyle = 'red';
+            this.context.lineWidth = 5;
+            this.context.strokeText("GAME OVER", TOTAL_WIDTH/4, TOTAL_HEIGHT/2);
+            this.context.fillText("GAME OVER", TOTAL_WIDTH/4, TOTAL_HEIGHT/2, TOTAL_WIDTH);
+        }
+
         if (this.gamePhase == GamePhase.SHOOT) {
             this.level.drawLineFromStartPositionTo(this.mousePos, this.context);
         }
     }
 
-    public clicked(x:number, y:number): void {
+    public clicked(x: number, y: number): void {
         console.log("GamePhase: " + this.gamePhase);
         if (this.gamePhase == GamePhase.SHOOT) {
             const startPosition = this.level.getStartPosition();
