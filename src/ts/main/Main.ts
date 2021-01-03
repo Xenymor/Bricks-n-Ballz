@@ -1,4 +1,5 @@
 const BALLSPEED = 800;
+const MAX_BALLS = 75;
 const MIN_CHAR_VAL = "1".charCodeAt(0);
 const MAX_CHAR_VAL = "9".charCodeAt(0);
 const BLOCK_WIDTH = 30;
