@@ -7,7 +7,6 @@ enum GamePhase {
 
 class GameLoop {
 
-    private maxBalls = 50;
     private level: Level;
     private gamePhase: GamePhase = GamePhase.SHOOT;
     private intervallHandle: number = -1;
@@ -78,7 +77,7 @@ class GameLoop {
             const startPosition = this.level.getStartPosition();
             const posX = startPosition.getX();
             const posY = startPosition.getY();
-            this.launchBall(posX, posY, x, y, this.maxBalls);
+            this.launchBall(posX, posY, x, y, MAX_BALLS);
             this.gamePhase = GamePhase.FLY;
             this.level.prepareNextShot();
         }
