@@ -11,6 +11,7 @@ class GameLoop {
     private level: Level;
     private gamePhase: GamePhase = GamePhase.SHOOT;
     private intervallHandle: number = -1;
+    private startPos:Vector2 = new Vector2(600/2, 599);
 
     constructor(private levelGenerator: LevelGenerator, private context: CanvasRenderingContext2D) {
         this.level = levelGenerator.getNextLevel();
@@ -59,10 +60,12 @@ class GameLoop {
     public clicked(x:number, y:number): void {
         console.log("GamePhase: " + this.gamePhase);
         if (this.gamePhase == GamePhase.SHOOT) {
-            const posX = 300;
-            const posY = 600;
+            const startPosition = this.level.getStartPosition();
+            const posX = startPosition.getX();
+            const posY = startPosition.getY();
             this.launchBall(posX, posY, x, y, this.maxBalls);
             this.gamePhase = GamePhase.FLY;
+            this.level.prepareNextShot();
         }
     }
 

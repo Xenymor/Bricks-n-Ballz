@@ -3,6 +3,25 @@ const FINE_GRAIN = 10;
 class Level {
     private blocks: Block[] = [];
     private balls: Ball[] = [];
+    private isFirstBall:boolean = false;
+    private startPosition:Vector2 = new Vector2(600/2, 599);
+
+    public getIsFirstBall():Boolean {
+        return this.isFirstBall;
+    }
+
+    public getStartPosition() :Vector2 {
+        return this.startPosition;
+    }
+
+    public prepareNextShot() {
+        this.isFirstBall = true;
+    }
+
+    public setIsFirstBall(isFirstBall:boolean): void {
+        this.isFirstBall = isFirstBall;
+    }
+
 
     constructor() {
     }
@@ -72,6 +91,9 @@ class Level {
             });
             let mustBeRemoved = ball.collideBox(0, 0, 600, 600);
             if (mustBeRemoved) {
+                if (this.isFirstBall) {
+                    this.startPosition.copyFrom(ball.getPos());
+                }
                 this.removeBall(ball);
             }
         });
