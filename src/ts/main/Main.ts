@@ -69,10 +69,8 @@ class Main2 {
         Main2.game = new GameLoop(levelGenerator, context);
     }
     public static canvasClicked(event: MouseEvent) {
-        console.log("Hallo");
         const x = event.clientX;
         const y = event.clientY;
-        console.log("Mouse position: " + x + ", " + y);
         Main2.game.clicked(x, y);
     }
     public static mouseMoved(event: MouseEvent): void {

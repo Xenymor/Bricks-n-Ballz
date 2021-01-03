@@ -74,7 +74,6 @@ class GameLoop {
     }
 
     public clicked(x: number, y: number): void {
-        console.log("GamePhase: " + this.gamePhase);
         if (this.gamePhase == GamePhase.SHOOT) {
             const startPosition = this.level.getStartPosition();
             const posX = startPosition.getX();

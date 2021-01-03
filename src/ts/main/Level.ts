@@ -79,7 +79,6 @@ class Level {
         });
 
         for (let i: number = indexes.size() - 1; i >= 0; i--) {
-            console.log("Delete block: ", indexes);
             delete this.blocks[indexes.get(i)];
         }
     }
