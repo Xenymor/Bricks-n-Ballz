@@ -89,7 +89,7 @@ class Level {
                     indexes.add(index);
                 }
             });
-            let mustBeRemoved = ball.collideBox(0, 0, 600, 600);
+            let mustBeRemoved = ball.collideBox(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
             if (mustBeRemoved) {
                 if (this.isFirstBall) {
                     this.startPosition.copyFrom(ball.getPos());

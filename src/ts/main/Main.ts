@@ -1,4 +1,14 @@
 const BALLSPEED = 800;
+const MIN_CHAR_VAL = "1".charCodeAt(0);
+const MAX_CHAR_VAL = "9".charCodeAt(0);
+const BLOCK_WIDTH = 30;
+const BLOCK_HEIGHT = 30;
+const BLOCK_COLUMNS = 11;
+const BLOCK_ROWS = 15;
+const TOTAL_WIDTH = BLOCK_WIDTH * BLOCK_COLUMNS;
+const TOTAL_HEIGHT = BLOCK_HEIGHT * BLOCK_ROWS;
+const blockColors = ["darkgreen", "green", "lightgreen", "goldenrod", "gold", "yellow",  "orange", "orangered", "FireBrick", "red", "red"];
+
 /*
     ///**
 class Main {

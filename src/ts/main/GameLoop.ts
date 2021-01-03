@@ -45,14 +45,14 @@ class GameLoop {
                 this.gamePhase = GamePhase.SHOOT;
                 this.level.moveBlocksDown();
                 // Game over if blocks are too low
-                if (this.level.hasBlocksBelow(600 - BLOCK_HEIGHT + 1)) {
+                if (this.level.hasBlocksBelow(TOTAL_HEIGHT - BLOCK_HEIGHT + 1)) {
                     this.gamePhase = GamePhase.GAME_OVER;
                 }
             }
         }
 
         // Draw
-        this.context.clearRect(0, 0, 600, 600);
+        this.context.clearRect(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
         this.level.draw(this.context);
         this.level.move(0.02);
     }
