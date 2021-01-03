@@ -1,4 +1,5 @@
 const FINE_GRAIN = 10;
+const LINE_WIDTH = 5;
 
 class Level {
     private blocks: Block[] = [];
@@ -26,19 +27,23 @@ class Level {
     constructor() {
     }
 
+    public drawLineFromStartPositionTo(pos:Vector2, context:CanvasRenderingContext2D) :void {
+        context.beginPath();
+        context.strokeStyle = "gold";
+        context.lineWidth = LINE_WIDTH;
+        context.moveTo(this.startPosition.getX(), this.startPosition.getY());
+        context.lineTo(pos.getX(), pos.getY());
+        context.stroke();
+    }
+
     public addBlock(block: Block): void {
         this.blocks.push(block);
         this.blocks.sort((a, b) => a.getX() - b.getX());
     }
 
     public removeBall(ball: Ball) {
-        const len = this.balls.length;
         const index = this.balls.indexOf(ball);
         this.balls.splice(index, 1);
-        const lenDiff = len - this.balls.length;
-        if (lenDiff > 1) {
-            console.log("!!!!!!!!!! Index = " + index + " / " + len + " / " + lenDiff + " / " + this.balls);
-        }
     }
 
     public hasBlocksLeft(): boolean {

@@ -12,6 +12,7 @@ class GameLoop {
     private gamePhase: GamePhase = GamePhase.SHOOT;
     private intervallHandle: number = -1;
     private startPos:Vector2 = new Vector2(600/2, 599);
+    private mousePos:Vector2 = new Vector2(0, 0);
 
     constructor(private levelGenerator: LevelGenerator, private context: CanvasRenderingContext2D) {
         this.level = levelGenerator.getNextLevel();
@@ -22,6 +23,10 @@ class GameLoop {
         this.intervallHandle = setInterval(() => {
             this.mainLoop();
         }, 20);
+    }
+
+    public mouseMoved(x:number, y:number) :void {
+        this.mousePos = new Vector2(x, y);
     }
 
     private mainLoop() {
@@ -55,6 +60,10 @@ class GameLoop {
         this.context.clearRect(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
         this.level.draw(this.context);
         this.level.move(0.02);
+        
+        if (this.gamePhase == GamePhase.SHOOT) {
+            this.level.drawLineFromStartPositionTo(this.mousePos, this.context);
+        }
     }
 
     public clicked(x:number, y:number): void {

@@ -7,7 +7,7 @@ const BLOCK_COLUMNS = 11;
 const BLOCK_ROWS = 15;
 const TOTAL_WIDTH = BLOCK_WIDTH * BLOCK_COLUMNS;
 const TOTAL_HEIGHT = BLOCK_HEIGHT * BLOCK_ROWS;
-const blockColors = ["darkgreen", "green", "lightgreen", "goldenrod", "gold", "yellow",  "orange", "orangered", "FireBrick", "red", "red"];
+const blockColors = ["darkgreen", "green", "lightgreen", "goldenrod", "gold", "yellow", "orange", "orangered", "FireBrick", "red", "red"];
 
 /*
     ///**
@@ -74,6 +74,9 @@ class Main2 {
         const y = event.clientY;
         console.log("Mouse position: " + x + ", " + y);
         Main2.game.clicked(x, y);
+    }
+    public static mouseMoved(event: MouseEvent): void {
+        this.game.mouseMoved(event.clientX, event.clientY);
     }
 }
 
