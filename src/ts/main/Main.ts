@@ -1,4 +1,4 @@
-const BALLSPEED = 400;
+const BALLSPEED = 800;
 /*
     ///**
 class Main {
@@ -62,6 +62,7 @@ class Main2 {
         console.log("Hallo");
         const x = event.clientX;
         const y = event.clientY;
+        console.log("Mouse position: " + x + ", " + y);
         Main2.game.clicked(x, y);
     }
 }

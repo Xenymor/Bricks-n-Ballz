@@ -87,7 +87,6 @@ class Level {
     }
 
     public hasBallsFlying(): boolean {
-        console.log("#Balls = " + this.balls.length);
         return this.balls.length > 0;
     }
 

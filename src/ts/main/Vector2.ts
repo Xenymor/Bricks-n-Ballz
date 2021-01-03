@@ -49,8 +49,11 @@ class Vector2 {
         this.y *= multWith;
     }
     public clamp(clamp: number): void {
-        this.x = this.x * clamp / this.length();
-        this.y = this.y * clamp / this.length();
+        const length:number = this.length();
+        const x = (this.x / length) * clamp;
+        const y = (this.y / length) * clamp;
+        this.x = x;
+        this.y = y;
     }
     public length(): number {
         return Math.sqrt(this.x * this.x + this.y * this.y);

@@ -82,7 +82,7 @@ class Block {
     }
 
     public draw(context: CanvasRenderingContext2D): void {
-        context.fillStyle = this.color;
+        context.fillStyle = blockColors[Math.floor(this.lives/10)];
         context.fillRect(this.x, this.y, this.width, this.height);
         context.fillStyle = "white";
         context.font = (this.height - this.height / 8 * 3).toFixed(99) + "px Arial";
