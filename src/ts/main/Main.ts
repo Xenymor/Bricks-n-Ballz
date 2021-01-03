@@ -1,5 +1,5 @@
 const BALLSPEED = 400;
-let magazinesize = 1;
+let magazinesize = 50;
 let bullets = magazinesize;
 let mayLaunchBalls:boolean = true;
 /*
@@ -61,11 +61,27 @@ class Main2 {
         const levelGenerator = new LevelGenerator(levels);
         Main2.game = new GameLoop(levelGenerator, context);
     }
-    public static canvasClicked(event: any) {
+    public static canvasClicked(event: MouseEvent) {
         console.log("Hallo");
-        const x = event.clientX;
-        const y = event.clientY;
-        Main2.game.clicked(x, y);
+        const x = event.offsetX;
+        const y = event.offsetY;
+        const posX = 300;
+        const posY = 599;
+        if (bullets >= magazinesize && mayLaunchBalls) {
+            this.launchBall(posX, posY, x, y, magazinesize-1);
+        }
+    }
+
+    private static launchBall(posX: number, posY: number, x: number, y: number, count: number): void {
+        let vel: Vector2 = new Vector2(x - posX, y - posY);
+        vel.clamp(BALLSPEED);
+        Main2.level.addBall(new Ball(vel, posX, posY, 5, "gold"));
+        bullets--;
+        if (count > 0) {
+            setTimeout(() => {
+                this.launchBall(posX, posY, x, y, count - 1);
+            }, 100);
+        }
     }
 }
 

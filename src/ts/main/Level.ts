@@ -43,8 +43,22 @@ class Level {
     private checkCollision() {
         let indexes: List<number> = new List();
         this.balls.forEach((ball) => {
+            let nearestCollidingBlock:Block = new Block(Number.MAX_VALUE, Number.MAX_VALUE, 0, 0, "", 0);
+            let nearesDistance:number = Number.MAX_VALUE;
+            let nearestIndex = 0;
             this.blocks.forEach((block, index) => {
-                block.collideBall(ball);
+                if(block.isTouchingBall(ball)) {
+                    if (new Vector2(block.getX(), block.getY()).distance(ball.getPos()) < nearesDistance) {
+                        nearestCollidingBlock = block;
+                        nearestIndex = index;
+                    }
+                }
+            });
+            nearestCollidingBlock.collideBall(ball);
+            if (nearestCollidingBlock.getLives() <= 0) {
+                indexes.add(nearestIndex);
+            }
+            this.blocks.forEach((block, index) => {
                 if (block.getLives() <= 0) {
                     indexes.add(index);
                 }
