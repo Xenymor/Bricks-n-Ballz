@@ -11,7 +11,6 @@ class GameLoop {
     private level: Level;
     private gamePhase: GamePhase = GamePhase.SHOOT;
     private intervallHandle: number = -1;
-    private startPos:Vector2 = new Vector2(600/2, 599);
     private mousePos:Vector2 = new Vector2(0, 0);
 
     constructor(private levelGenerator: LevelGenerator, private context: CanvasRenderingContext2D) {

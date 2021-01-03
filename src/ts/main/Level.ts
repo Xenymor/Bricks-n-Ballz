@@ -5,7 +5,7 @@ class Level {
     private blocks: Block[] = [];
     private balls: Ball[] = [];
     private isFirstBall:boolean = false;
-    private startPosition:Vector2 = new Vector2(600/2, 599);
+    private startPosition:Vector2 = new Vector2(TOTAL_WIDTH/2, TOTAL_HEIGHT);
 
     public getIsFirstBall():Boolean {
         return this.isFirstBall;
@@ -74,36 +74,42 @@ class Level {
     private checkCollision() {
         let indexes: List<number> = new List();
         this.balls.forEach((ball) => {
-            let nearestCollidingBlock:Block = new Block(Number.MAX_VALUE, Number.MAX_VALUE, 0, 0, "", 0);
-            let nearesDistance:number = Number.MAX_VALUE;
-            let nearestIndex = 0;
-            this.blocks.forEach((block, index) => {
-                if(block.isTouchingBall(ball)) {
-                    if (new Vector2(block.getX(), block.getY()).distance(ball.getPos()) < nearesDistance) {
-                        nearestCollidingBlock = block;
-                        nearestIndex = index;
-                    }
-                }
-            });
-            nearestCollidingBlock.collideBall(ball);
-            if (nearestCollidingBlock.getLives() <= 0) {
-                indexes.add(nearestIndex);
+            this.collideWithBlocks(ball, indexes);
+            this.collideWithWalls(ball);
+        });
+
+        for (let i: number = indexes.size() - 1; i >= 0; i--) {
+            console.log("Delete block: ", indexes);
+            delete this.blocks[indexes.get(i)];
+        }
+    }
+
+    private collideWithWalls(ball: Ball) {
+        let mustBeRemoved = ball.collideBox(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
+        if (mustBeRemoved) {
+            if (this.isFirstBall) {
+                this.startPosition.copyFrom(ball.getPos());
             }
-            this.blocks.forEach((block, index) => {
-                if (block.getLives() <= 0) {
-                    indexes.add(index);
+            this.removeBall(ball);
+        }
+    }
+
+    private collideWithBlocks(ball: Ball, indexes: List<number>) {
+        let nearesDistance: number = Number.MAX_VALUE;
+        let nearestIndex = -1;
+        this.blocks.forEach((block, index) => {
+            if (block.isTouchingBall(ball)) {
+                if (new Vector2(block.getX(), block.getY()).distance(ball.getPos()) < nearesDistance) {
+                    nearestIndex = index;
                 }
-            });
-            let mustBeRemoved = ball.collideBox(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
-            if (mustBeRemoved) {
-                if (this.isFirstBall) {
-                    this.startPosition.copyFrom(ball.getPos());
-                }
-                this.removeBall(ball);
             }
         });
-        for (let i: number = indexes.size() - 1; i >= 0; i--) {
-            delete this.blocks[indexes.get(i)];
+        if (nearestIndex >= 0) {
+            const blockHit = this.blocks[nearestIndex];
+            blockHit.collideBall(ball);
+            if (blockHit.getLives() <= 0) {
+                indexes.add(nearestIndex);
+            }
         }
     }
 
