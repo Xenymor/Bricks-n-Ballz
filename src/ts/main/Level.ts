@@ -89,6 +89,7 @@ class Level {
         if (mustBeRemoved) {
             if (this.isFirstBall) {
                 this.startPosition.copyFrom(ball.getPos());
+                this.isFirstBall = false;
             }
             this.removeBall(ball);
         }
