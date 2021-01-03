@@ -61,11 +61,11 @@ class GameLoop {
         this.level.move(0.02);
         if (this.gamePhase == GamePhase.GAME_OVER) {
             this.context.fillStyle = "white";
-            this.context.font = (30).toFixed(99) + "px Arial";
+            this.context.font = (60).toFixed(99) + "px Arial";
             this.context.strokeStyle = 'red';
-            this.context.lineWidth = 5;
-            this.context.strokeText("GAME OVER", TOTAL_WIDTH/4, TOTAL_HEIGHT/2);
-            this.context.fillText("GAME OVER", TOTAL_WIDTH/4, TOTAL_HEIGHT/2, TOTAL_WIDTH);
+            this.context.lineWidth = 10;
+            this.context.strokeText("GAME OVER", TOTAL_WIDTH/20, TOTAL_HEIGHT/2, TOTAL_WIDTH*0.9);
+            this.context.fillText("GAME OVER", TOTAL_WIDTH/20, TOTAL_HEIGHT/2, TOTAL_WIDTH*0.9);
         }
 
         if (this.gamePhase == GamePhase.SHOOT) {
