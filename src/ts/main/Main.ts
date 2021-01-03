@@ -1,7 +1,4 @@
 const BALLSPEED = 400;
-let magazinesize = 50;
-let bullets = magazinesize;
-let mayLaunchBalls:boolean = true;
 /*
     ///**
 class Main {

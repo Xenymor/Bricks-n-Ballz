@@ -1,7 +1,6 @@
 const FINE_GRAIN = 10;
 
 class Level {
-
     private blocks: Block[] = [];
     private balls: Ball[] = [];
 
@@ -14,11 +13,19 @@ class Level {
     }
 
     public removeBall(ball: Ball) {
-        delete this.balls[this.balls.indexOf(ball)];
+        const len = this.balls.length;
+        const index = this.balls.indexOf(ball);
+        this.balls.splice(index, 1);
+        const lenDiff = len - this.balls.length;
+        if (lenDiff > 1) {
+            console.log("!!!!!!!!!! Index = " + index + " / " + len + " / " + lenDiff + " / " + this.balls);
+        }
     }
 
     public hasBlocksLeft(): boolean {
-        return this.blocks.length > 0;
+        let count = 0;
+        this.blocks.forEach((b) => {count++});
+        return count > 0;
     }
 
     public addBall(ball: Ball): void {
@@ -71,6 +78,27 @@ class Level {
         for (let i: number = indexes.size() - 1; i >= 0; i--) {
             delete this.blocks[indexes.get(i)];
         }
+    }
+
+    public moveBlocksDown() {
+        this.blocks.forEach((block) => {
+            block.setY(block.getY() + BLOCK_HEIGHT);
+        })
+    }
+
+    public hasBallsFlying(): boolean {
+        console.log("#Balls = " + this.balls.length);
+        return this.balls.length > 0;
+    }
+
+    public hasBlocksBelow(yPos: number) {
+        for (let i=0; i<this.blocks.length; i++) {
+            let block = this.blocks[i];
+            if (block && block.getY() + BLOCK_HEIGHT > yPos) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

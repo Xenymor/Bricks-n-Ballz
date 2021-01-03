@@ -1,6 +1,8 @@
 enum GamePhase {
     SHOOT,
     FLY,
+    GAME_OVER,
+    WON,
 }
 
 class GameLoop {
@@ -17,28 +19,50 @@ class GameLoop {
 
     private initIntervall(): void {
         this.intervallHandle = setInterval(() => {
-            if (!this.level.hasBlocksLeft()) {
-                if (this.levelGenerator.hasNext()) {
-                    this.level = this.levelGenerator.getNextLevel();
-                } else {
-                    clearInterval(this.intervallHandle);
-                }
-            }
-
-            this.context.clearRect(0, 0, 600, 600);
-            this.level.draw(this.context);
-            this.level.move(0.02);
-/*            if (!this.level.hasBlocksLeft()) {
-                this.level = new LevelGenerator();
-            }*/
+            this.mainLoop();
         }, 20);
     }
 
+    private mainLoop() {
+
+        if (this.gamePhase == GamePhase.SHOOT) {
+            // Switch Level
+            if (!this.level.hasBlocksLeft()) {
+                if (this.levelGenerator.hasNext()) {
+                    this.level = this.levelGenerator.getNextLevel();
+                    this.gamePhase = GamePhase.SHOOT;
+                } else {
+                    clearInterval(this.intervallHandle);
+                    this.gamePhase = GamePhase.WON;
+                }
+            }
+        }
+
+        if (this.gamePhase == GamePhase.FLY) {
+            // Move down when balls are gone
+            if (!this.level.hasBallsFlying()) {
+                this.gamePhase = GamePhase.SHOOT;
+                this.level.moveBlocksDown();
+                // Game over if blocks are too low
+                if (this.level.hasBlocksBelow(600 - BLOCK_HEIGHT + 1)) {
+                    this.gamePhase = GamePhase.GAME_OVER;
+                }
+            }
+        }
+
+        // Draw
+        this.context.clearRect(0, 0, 600, 600);
+        this.level.draw(this.context);
+        this.level.move(0.02);
+    }
+
     public clicked(x:number, y:number): void {
+        console.log("GamePhase: " + this.gamePhase);
         if (this.gamePhase == GamePhase.SHOOT) {
             const posX = 300;
-            const posY = 599;
+            const posY = 600;
             this.launchBall(posX, posY, x, y, this.maxBalls);
+            this.gamePhase = GamePhase.FLY;
         }
     }
 

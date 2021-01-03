@@ -77,6 +77,10 @@ class Block {
         return this.height;
     }
 
+    public setY(newY: number): void {
+        this.y = newY;
+    }
+
     public draw(context: CanvasRenderingContext2D): void {
         context.fillStyle = this.color;
         context.fillRect(this.x, this.y, this.width, this.height);
