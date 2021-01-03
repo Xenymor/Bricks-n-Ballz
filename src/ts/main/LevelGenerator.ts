@@ -16,6 +16,8 @@ class LevelGenerator {
         let lines = this.levelData[this.levelCount++];
         const level = new Level();
 
+        const totalLines = lines.length;
+
         lines.forEach((line, j) => {
             for (let i=0; i<line.length; i++) {
                 let value = line.charCodeAt(i);
@@ -26,7 +28,7 @@ class LevelGenerator {
                 }
                 if (value > 0) {
                     let x = i * BLOCK_WIDTH;
-                    let y = j * BLOCK_HEIGHT;
+                    let y = (BLOCK_ROWS - (totalLines - j)) * BLOCK_HEIGHT;
                     let block = new Block(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, blockColors[value], value * 10);
                     level.addBlock(block);
                 }
