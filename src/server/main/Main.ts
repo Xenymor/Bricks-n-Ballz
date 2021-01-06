@@ -1,6 +1,7 @@
 class MyApp implements App {
     public onUserJoined(user: User) {
-        user.sendPrivateMessage("Hi " + user.getNick());
+        let file = new HTMLFile('index.html', {});
+        user.sendAppContent(AppContent.overlayContent(file, 330, 570));        
     }
 }
 
