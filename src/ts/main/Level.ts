@@ -105,17 +105,21 @@ class Level {
             }
         });
         if (nearestIndex >= 0) {
-            BALL_SOUND[ballSoundIndex].play();
-            if (BALL_SOUND.length-1 > ballSoundIndex) {
-                ballSoundIndex++;
-            } else {
-                ballSoundIndex = 0;
-            }
+            this.playCollisionSound();
             const blockHit = this.blocks[nearestIndex];
             blockHit.collideBall(ball);
             if (blockHit.getLives() <= 0) {
                 indexes.add(nearestIndex);
             }
+        }
+    }
+
+    private playCollisionSound() {
+        BALL_SOUND[ballSoundIndex].play();
+        if (BALL_SOUND.length - 1 > ballSoundIndex) {
+            ballSoundIndex++;
+        } else {
+            ballSoundIndex = 0;
         }
     }
 
