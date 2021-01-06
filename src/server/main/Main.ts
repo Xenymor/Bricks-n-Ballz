@@ -2,6 +2,7 @@ class MyApp implements App {
     public onUserJoined(user: User) {
         user.sendPrivateMessage("Gib /restart ein um das Spiel neu zu starten und gib /quit ein um das Spiel zu beenden");
         let file = new HTMLFile('index.html', {});
+        user.sendAppContent(AppContent.overlayContent(file, 330, 570));
     }
     /*    public onPublicMessage(msg:PublicMessage) {
             if (msg.getAuthor().isChannelModerator()) {
@@ -34,6 +35,7 @@ class MyApp implements App {
                 const pardoned = userAcces.getUserById(userAcces.getUserId(params));
                 const persistence = pardoned.getPersistence();
                 persistence.deleteNumber("muted");
+                user.sendPrivateMessage(pardoned.getNick() + " was muted");
             }
         },
         restart: (user: User, params: string, command: string) => {

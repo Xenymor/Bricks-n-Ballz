@@ -21,6 +21,7 @@ var MyApp = /** @class */ (function () {
                     var pardoned = userAcces.getUserById(userAcces.getUserId(params));
                     var persistence = pardoned.getPersistence();
                     persistence.deleteNumber("muted");
+                    user.sendPrivateMessage(pardoned.getNick() + " was muted");
                 }
             },
             restart: function (user, params, command) {
@@ -34,6 +35,7 @@ var MyApp = /** @class */ (function () {
     MyApp.prototype.onUserJoined = function (user) {
         user.sendPrivateMessage("Gib /restart ein um das Spiel neu zu starten und gib /quit ein um das Spiel zu beenden");
         var file = new HTMLFile('index.html', {});
+        user.sendAppContent(AppContent.overlayContent(file, 330, 570));
     };
     /*    public onPublicMessage(msg:PublicMessage) {
             if (msg.getAuthor().isChannelModerator()) {
