@@ -6,11 +6,11 @@ enum GamePhase {
 }
 
 class GameLoop {
-
     private level: Level;
     private gamePhase: GamePhase = GamePhase.SHOOT;
     private intervallHandle: number = -1;
     private mousePos: Vector2 = new Vector2(0, 0);
+    private nextBallLaunch: number = 0;
 
     constructor(private levelGenerator: LevelGenerator, private context: CanvasRenderingContext2D) {
         this.level = levelGenerator.getNextLevel();
@@ -54,10 +54,13 @@ class GameLoop {
             }
         }
 
+        // Move
+        this.level.move(0.02);
+        
         // Draw
         this.context.clearRect(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
         this.level.draw(this.context);
-        this.level.move(0.02);
+
         if (this.gamePhase == GamePhase.GAME_OVER) {
             this.context.fillStyle = "white";
             this.context.font = (60).toFixed(99) + "px Arial";
@@ -88,9 +91,23 @@ class GameLoop {
             let vel: Vector2 = new Vector2(x - posX, y - posY);
             vel.clamp(BALLSPEED);
             this.level.addBall(new Ball(vel, posX, posY, 5, "gold"));
-            setTimeout(() => {
+            this.nextBallLaunch = setTimeout(() => {
                 this.launchBall(posX, posY, x, y, count - 1);
             }, 30);
+        } else {
+            this.nextBallLaunch = 0;
         }
     }
+
+    public abortBalls() {
+        if (this.gamePhase == GamePhase.FLY) {
+            this.level.removeAllBalls();
+            if (this.nextBallLaunch != 0) {
+                clearTimeout(this.nextBallLaunch);
+                this.nextBallLaunch = 0;
+            }
+        }
+    }
+
+
 }

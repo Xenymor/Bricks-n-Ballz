@@ -79,6 +79,11 @@ class Main2 {
     public static mouseMoved(event: MouseEvent): void {
         this.game.mouseMoved(event.clientX, event.clientY);
     }
+
+    public static abortBalls(): void {
+        console.log("Test");
+        this.game.abortBalls();
+    }
 }
 
 function start() {
