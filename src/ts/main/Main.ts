@@ -9,6 +9,8 @@ const BLOCK_ROWS = 19;
 const TOTAL_WIDTH = BLOCK_WIDTH * BLOCK_COLUMNS;
 const TOTAL_HEIGHT = BLOCK_HEIGHT * BLOCK_ROWS;
 const blockColors = ["darkgreen", "green", "lightgreen", "goldenrod", "gold", "yellow", "orange", "orangered", "FireBrick", "red", "red"];
+const BALL_SOUND = [new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav")];
+let ballSoundIndex = 0;
 
 /*
     ///**
