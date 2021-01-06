@@ -1,5 +1,5 @@
 const FINE_GRAIN = 10;
-const LINE_WIDTH = 5;
+const LINE_WIDTH = 2;
 
 class Level {
     private blocks: Block[] = [];
@@ -30,10 +30,12 @@ class Level {
     public drawLineFromStartPositionTo(pos:Vector2, context:CanvasRenderingContext2D) :void {
         context.beginPath();
         context.strokeStyle = "gold";
+        context.setLineDash([5, 8]);
         context.lineWidth = LINE_WIDTH;
         context.moveTo(this.startPosition.getX(), this.startPosition.getY());
         context.lineTo(pos.getX(), pos.getY());
         context.stroke();
+        context.setLineDash([]);
     }
 
     public addBlock(block: Block): void {
@@ -142,5 +144,10 @@ class Level {
         }
         return false;
     }
+
+    public removeAllBalls(): void {
+        this.balls.splice(0, this.balls.length);
+    }
+
 
 }

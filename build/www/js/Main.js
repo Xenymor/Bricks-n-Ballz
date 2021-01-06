@@ -169,6 +169,7 @@ var GameLoop = /** @class */ (function () {
         this.gamePhase = GamePhase.SHOOT;
         this.intervallHandle = -1;
         this.mousePos = new Vector2(0, 0);
+        this.nextBallLaunch = 0;
         this.level = levelGenerator.getNextLevel();
         this.initIntervall();
     }
@@ -206,10 +207,11 @@ var GameLoop = /** @class */ (function () {
                 }
             }
         }
+        // Move
+        this.level.move(0.02);
         // Draw
         this.context.clearRect(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
         this.level.draw(this.context);
-        this.level.move(0.02);
         if (this.gamePhase == GamePhase.GAME_OVER) {
             this.context.fillStyle = "white";
             this.context.font = (60).toFixed(99) + "px Arial";
@@ -238,15 +240,27 @@ var GameLoop = /** @class */ (function () {
             var vel = new Vector2(x - posX, y - posY);
             vel.clamp(BALLSPEED);
             this.level.addBall(new Ball(vel, posX, posY, 5, "gold"));
-            setTimeout(function () {
+            this.nextBallLaunch = setTimeout(function () {
                 _this.launchBall(posX, posY, x, y, count - 1);
             }, 30);
+        }
+        else {
+            this.nextBallLaunch = 0;
+        }
+    };
+    GameLoop.prototype.abortBalls = function () {
+        if (this.gamePhase == GamePhase.FLY) {
+            this.level.removeAllBalls();
+            if (this.nextBallLaunch != 0) {
+                clearTimeout(this.nextBallLaunch);
+                this.nextBallLaunch = 0;
+            }
         }
     };
     return GameLoop;
 }());
 var FINE_GRAIN = 10;
-var LINE_WIDTH = 5;
+var LINE_WIDTH = 2;
 var Level = /** @class */ (function () {
     function Level() {
         this.blocks = [];
@@ -269,10 +283,12 @@ var Level = /** @class */ (function () {
     Level.prototype.drawLineFromStartPositionTo = function (pos, context) {
         context.beginPath();
         context.strokeStyle = "gold";
+        context.setLineDash([5, 8]);
         context.lineWidth = LINE_WIDTH;
         context.moveTo(this.startPosition.getX(), this.startPosition.getY());
         context.lineTo(pos.getX(), pos.getY());
         context.stroke();
+        context.setLineDash([]);
     };
     Level.prototype.addBlock = function (block) {
         this.blocks.push(block);
@@ -368,6 +384,9 @@ var Level = /** @class */ (function () {
             }
         }
         return false;
+    };
+    Level.prototype.removeAllBalls = function () {
+        this.balls.splice(0, this.balls.length);
     };
     return Level;
 }());
@@ -576,6 +595,10 @@ var Main2 = /** @class */ (function () {
     };
     Main2.mouseMoved = function (event) {
         this.game.mouseMoved(event.clientX, event.clientY);
+    };
+    Main2.abortBalls = function () {
+        console.log("Test");
+        this.game.abortBalls();
     };
     return Main2;
 }());
