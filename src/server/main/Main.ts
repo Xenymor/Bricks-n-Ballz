@@ -1,8 +1,7 @@
 class MyApp implements App {
     public onUserJoined(user: User) {
-        user.sendPrivateMessage("Gib /restart ein um das Spiel neu zu starten");
+        user.sendPrivateMessage("Gib /restart ein um das Spiel neu zu starten und gib /quit ein um das Spiel zu beenden");
         let file = new HTMLFile('index.html', {});
-        user.sendAppContent(AppContent.overlayContent(file, 330, 570));
     }
     /*    public onPublicMessage(msg:PublicMessage) {
             if (msg.getAuthor().isChannelModerator()) {
@@ -39,6 +38,9 @@ class MyApp implements App {
         },
         restart: (user: User, params: string, command: string) => {
             this.onUserJoined(user);
+        },
+        quit: (user: User, params: string, command: string) => {
+            user.getAppContentSession(AppViewMode.Overlay).remove();
         },
     }
 }
