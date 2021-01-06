@@ -71,8 +71,13 @@ class GameLoop {
         }
 
         if (this.gamePhase == GamePhase.SHOOT) {
-            this.level.drawLineFromStartPositionTo(this.mousePos, this.context);
+            const shootTarget = new Vector2(this.mousePos.getX(), this.limit(this.mousePos.getY(), 0, TOTAL_HEIGHT - BLOCK_HEIGHT));
+            this.level.drawLineFromStartPositionTo(shootTarget, this.context);
         }
+    }
+
+    private limit(n: number, min: number, max: number): number {
+        return (n < min) ? (min): ((n > max) ? max : n);
     }
 
     public clicked(x: number, y: number): void {
@@ -80,7 +85,7 @@ class GameLoop {
             const startPosition = this.level.getStartPosition();
             const posX = startPosition.getX();
             const posY = startPosition.getY();
-            this.launchBall(posX, posY, x, y, MAX_BALLS);
+            this.launchBall(posX, posY, x, this.limit(y, 0, TOTAL_HEIGHT - BLOCK_HEIGHT), MAX_BALLS);
             this.gamePhase = GamePhase.FLY;
             this.level.prepareNextShot();
         }

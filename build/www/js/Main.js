@@ -221,15 +221,19 @@ var GameLoop = /** @class */ (function () {
             this.context.fillText("GAME OVER", TOTAL_WIDTH / 20, TOTAL_HEIGHT / 2, TOTAL_WIDTH * 0.9);
         }
         if (this.gamePhase == GamePhase.SHOOT) {
-            this.level.drawLineFromStartPositionTo(this.mousePos, this.context);
+            var shootTarget = new Vector2(this.mousePos.getX(), this.limit(this.mousePos.getY(), 0, TOTAL_HEIGHT - BLOCK_HEIGHT));
+            this.level.drawLineFromStartPositionTo(shootTarget, this.context);
         }
+    };
+    GameLoop.prototype.limit = function (n, min, max) {
+        return (n < min) ? (min) : ((n > max) ? max : n);
     };
     GameLoop.prototype.clicked = function (x, y) {
         if (this.gamePhase == GamePhase.SHOOT) {
             var startPosition = this.level.getStartPosition();
             var posX = startPosition.getX();
             var posY = startPosition.getY();
-            this.launchBall(posX, posY, x, y, MAX_BALLS);
+            this.launchBall(posX, posY, x, this.limit(y, 0, TOTAL_HEIGHT - BLOCK_HEIGHT), MAX_BALLS);
             this.gamePhase = GamePhase.FLY;
             this.level.prepareNextShot();
         }
@@ -429,6 +433,22 @@ var LevelGenerator = /** @class */ (function () {
 var levels = [
     [
         "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "123456789  ",
+    ],
+    [
+        "           ",
         "    1 1    ",
         "           ",
         "           ",
@@ -455,15 +475,15 @@ var levels = [
     ],
     [
         "99999999999",
-        "9          ",
-        "9 9999999  ",
-        "9 9     9  ",
-        "9 9 999 9  ",
-        "9 9   9 9  ",
-        "9 9   9 9  ",
-        "9 99999 9  ",
-        "9       9  ",
-        "999999999  ",
+        "9         9",
+        "9 9999999 9",
+        "9 9     9 9",
+        "9 9 999 9 9",
+        "9 9   9 9 9",
+        "9 9   9 9 9",
+        "9 99999 9 9",
+        "9       9 9",
+        "999999999 9",
         "           ",
         "           ",
         "           ",
@@ -495,6 +515,48 @@ var levels = [
         "           ",
         "           ",
         "           ",
+        "           ",
+        "           ",
+    ],
+    [
+        "9999999999 ",
+        "9999999999 ",
+        "9999999999 ",
+        "     9     ",
+        "    888    ",
+        "   7 7 7   ",
+        "  6 6 6 6  ",
+        " 5 5 5 5 5 ",
+        "4 4 4 4 4 4",
+        "33333333333",
+        "11111111111",
+        " 7 7 7 7 7 ",
+        "6 6 6 6 6 6",
+        " 4 3 2 3 4 ",
+        "5 5 5 5 5 5",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+        "           ",
+    ],
+    [
+        "   66666   ",
+        "  6555556  ",
+        " 655555556 ",
+        " 655252556 ",
+        " 655555556 ",
+        " 656555656 ",
+        " 655666556 ",
+        "  6555556  ",
+        "   66666   ",
+        "           ",
+        "11111111111",
+        "1         1",
+        "1 111 111 1",
+        "1 151 151 1",
+        "2 2225222 2",
         "           ",
         "           ",
     ],
