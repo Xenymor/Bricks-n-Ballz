@@ -13,9 +13,9 @@
     // "declaration": true,                   /* Generates corresponding '.d.ts' file. */
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
     // "sourceMap": true,                     /* Generates corresponding '.map' file. */
-     "outFile": "./build/js/Main.js",                       /* Concatenate and emit output to single file. */
+     "outFile": "./build/js/main.js",                       /* Concatenate and emit output to single file. */
     //"outDir": "./build/js/",                        /* Redirect output structure to the directory. */
-    "rootDir": "./src/ts/main/",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    "rootDir": "./src/server/main/",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
     // "removeComments": true,                /* Do not emit comments to output. */
