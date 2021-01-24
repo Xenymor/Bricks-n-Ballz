@@ -4,14 +4,14 @@ const LINE_WIDTH = 2;
 class Level {
     private blocks: Block[] = [];
     private balls: Ball[] = [];
-    private isFirstBall:boolean = false;
-    private startPosition:Vector2 = new Vector2(TOTAL_WIDTH/2, TOTAL_HEIGHT);
+    private isFirstBall: boolean = false;
+    private startPosition: Vector2 = new Vector2(TOTAL_WIDTH / 2, TOTAL_HEIGHT);
 
-    public getIsFirstBall():Boolean {
+    public getIsFirstBall(): Boolean {
         return this.isFirstBall;
     }
 
-    public getStartPosition() :Vector2 {
+    public getStartPosition(): Vector2 {
         return this.startPosition;
     }
 
@@ -19,7 +19,7 @@ class Level {
         this.isFirstBall = true;
     }
 
-    public setIsFirstBall(isFirstBall:boolean): void {
+    public setIsFirstBall(isFirstBall: boolean): void {
         this.isFirstBall = isFirstBall;
     }
 
@@ -27,7 +27,7 @@ class Level {
     constructor() {
     }
 
-    public drawLineFromStartPositionTo(pos:Vector2, context:CanvasRenderingContext2D) :void {
+    public drawLineFromStartPositionTo(pos: Vector2, context: CanvasRenderingContext2D): void {
         context.beginPath();
         context.strokeStyle = "gold";
         context.setLineDash([5, 8]);
@@ -50,7 +50,7 @@ class Level {
 
     public hasBlocksLeft(): boolean {
         let count = 0;
-        this.blocks.forEach((b) => {count++});
+        this.blocks.forEach((b) => { count++ });
         return count > 0;
     }
 
@@ -107,21 +107,11 @@ class Level {
             }
         });
         if (nearestIndex >= 0) {
-            this.playCollisionSound();
             const blockHit = this.blocks[nearestIndex];
             blockHit.collideBall(ball);
             if (blockHit.getLives() <= 0) {
                 indexes.add(nearestIndex);
             }
-        }
-    }
-
-    private playCollisionSound() {
-        BALL_SOUND[ballSoundIndex].play();
-        if (BALL_SOUND.length - 1 > ballSoundIndex) {
-            ballSoundIndex++;
-        } else {
-            ballSoundIndex = 0;
         }
     }
 
@@ -136,7 +126,7 @@ class Level {
     }
 
     public hasBlocksBelow(yPos: number) {
-        for (let i=0; i<this.blocks.length; i++) {
+        for (let i = 0; i < this.blocks.length; i++) {
             let block = this.blocks[i];
             if (block && block.getY() + BLOCK_HEIGHT > yPos) {
                 return true;

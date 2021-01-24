@@ -36,7 +36,7 @@ var MyApp = /** @class */ (function () {
                     _this.addUpgradePoints(parseInt(paramsArray[0]), _this.getUserByNick(paramsArray[1]));
                     user.sendPrivateMessage("Set points of " + paramsArray[1] + " to " + _this.getUserByNick(paramsArray[1]).getPersistence().getNumber("upgradePoints"));
                 }
-            }
+            },
         };
     }
     MyApp.prototype.onUserJoined = function (user) {
@@ -44,6 +44,8 @@ var MyApp = /** @class */ (function () {
         var file = new HTMLFile('index.html', {});
         user.sendAppContent(AppContent.overlayContent(file, 330, 570));
         user.getPersistence().addNumber("upgradePoints", 0);
+        //Client.playSound("sfx/Calming - AShamaluevMusic.mp3");
+        //https://www.ashamaluevmusic.com/ambient-music
     };
     /*    public onPublicMessage(msg:PublicMessage) {
             if (msg.getAuthor().isChannelModerator()) {

@@ -96,7 +96,20 @@ class Block {
     }
 
     public subLives(toSub: number): void {
+        const livesBefore = this.lives;
         this.lives -= toSub;
+        if (this.lives <= 0 && livesBefore > 0) {
+            this.playExplosionSound();
+        }
+    }
+
+    private playExplosionSound() {
+        BLOCK_SOUND[blockSoundIndex].play();
+        if (BLOCK_SOUND.length - 1 > blockSoundIndex) {
+            blockSoundIndex++;
+        } else {
+            blockSoundIndex = 0;
+        }
     }
 
     public setLives(lives: number) {

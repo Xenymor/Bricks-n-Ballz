@@ -145,7 +145,20 @@ var Block = /** @class */ (function () {
         context.strokeRect(this.x, this.y, this.width, this.height);
     };
     Block.prototype.subLives = function (toSub) {
+        var livesBefore = this.lives;
         this.lives -= toSub;
+        if (this.lives <= 0 && livesBefore > 0) {
+            this.playExplosionSound();
+        }
+    };
+    Block.prototype.playExplosionSound = function () {
+        BLOCK_SOUND[blockSoundIndex].play();
+        if (BLOCK_SOUND.length - 1 > blockSoundIndex) {
+            blockSoundIndex++;
+        }
+        else {
+            blockSoundIndex = 0;
+        }
     };
     Block.prototype.setLives = function (lives) {
         this.lives = lives;
@@ -170,8 +183,10 @@ var GameLoop = /** @class */ (function () {
         this.intervallHandle = -1;
         this.mousePos = new Vector2(0, 0);
         this.nextBallLaunch = 0;
+        this.moveFactor = 1;
         this.level = levelGenerator.getNextLevel();
         this.initIntervall();
+        this.flyBeginTime = 0;
     }
     GameLoop.prototype.initIntervall = function () {
         var _this = this;
@@ -207,8 +222,16 @@ var GameLoop = /** @class */ (function () {
                 }
             }
         }
+        if (this.gamePhase == GamePhase.FLY) {
+            this.moveFactor = (window.performance.now() - this.flyBeginTime) / 5000;
+        }
+        else {
+            this.moveFactor = 1;
+        }
         // Move
-        this.level.move(0.02);
+        for (var i = 0; i < this.moveFactor; i++) {
+            this.level.move(0.02);
+        }
         // Draw
         this.context.clearRect(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
         this.level.draw(this.context);
@@ -236,6 +259,7 @@ var GameLoop = /** @class */ (function () {
             this.launchBall(posX, posY, x, this.limit(y, 0, TOTAL_HEIGHT - BLOCK_HEIGHT), MAX_BALLS);
             this.gamePhase = GamePhase.FLY;
             this.level.prepareNextShot();
+            this.flyBeginTime = window.performance.now();
         }
     };
     GameLoop.prototype.launchBall = function (posX, posY, x, y, count) {
@@ -355,21 +379,11 @@ var Level = /** @class */ (function () {
             }
         });
         if (nearestIndex >= 0) {
-            this.playCollisionSound();
             var blockHit = this.blocks[nearestIndex];
             blockHit.collideBall(ball);
             if (blockHit.getLives() <= 0) {
                 indexes.add(nearestIndex);
             }
-        }
-    };
-    Level.prototype.playCollisionSound = function () {
-        BALL_SOUND[ballSoundIndex].play();
-        if (BALL_SOUND.length - 1 > ballSoundIndex) {
-            ballSoundIndex++;
-        }
-        else {
-            ballSoundIndex = 0;
         }
     };
     Level.prototype.moveBlocksDown = function () {
@@ -630,8 +644,8 @@ var BLOCK_ROWS = 19;
 var TOTAL_WIDTH = BLOCK_WIDTH * BLOCK_COLUMNS;
 var TOTAL_HEIGHT = BLOCK_HEIGHT * BLOCK_ROWS;
 var blockColors = ["darkgreen", "green", "lightgreen", "goldenrod", "gold", "yellow", "orange", "orangered", "FireBrick", "red", "red"];
-var BALL_SOUND = [new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav")];
-var ballSoundIndex = 0;
+var BLOCK_SOUND = [new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav")];
+var blockSoundIndex = 0;
 /*
     ///**
 class Main {

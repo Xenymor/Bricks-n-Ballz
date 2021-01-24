@@ -6,15 +6,18 @@ enum GamePhase {
 }
 
 class GameLoop {
+    private flyBeginTime: number;
     private level: Level;
     private gamePhase: GamePhase = GamePhase.SHOOT;
     private intervallHandle: number = -1;
     private mousePos: Vector2 = new Vector2(0, 0);
     private nextBallLaunch: number = 0;
+    private moveFactor: number = 1;
 
     constructor(private levelGenerator: LevelGenerator, private context: CanvasRenderingContext2D) {
         this.level = levelGenerator.getNextLevel();
         this.initIntervall();
+        this.flyBeginTime = 0;
     }
 
     private initIntervall(): void {
@@ -28,7 +31,6 @@ class GameLoop {
     }
 
     private mainLoop() {
-
         if (this.gamePhase == GamePhase.SHOOT) {
             // Switch Level
             if (!this.level.hasBlocksLeft()) {
@@ -54,9 +56,17 @@ class GameLoop {
             }
         }
 
+        if (this.gamePhase == GamePhase.FLY) {
+            this.moveFactor = (window.performance.now() - this.flyBeginTime)/5000;
+        } else {
+            this.moveFactor = 1;
+        }
+
         // Move
-        this.level.move(0.02);
-        
+        for (let i = 0; i < this.moveFactor; i++) {
+            this.level.move(0.02);
+        }
+
         // Draw
         this.context.clearRect(0, 0, TOTAL_WIDTH, TOTAL_HEIGHT);
         this.level.draw(this.context);
@@ -66,8 +76,8 @@ class GameLoop {
             this.context.font = (60).toFixed(99) + "px Arial";
             this.context.strokeStyle = 'red';
             this.context.lineWidth = 10;
-            this.context.strokeText("GAME OVER", TOTAL_WIDTH/20, TOTAL_HEIGHT/2, TOTAL_WIDTH*0.9);
-            this.context.fillText("GAME OVER", TOTAL_WIDTH/20, TOTAL_HEIGHT/2, TOTAL_WIDTH*0.9);
+            this.context.strokeText("GAME OVER", TOTAL_WIDTH / 20, TOTAL_HEIGHT / 2, TOTAL_WIDTH * 0.9);
+            this.context.fillText("GAME OVER", TOTAL_WIDTH / 20, TOTAL_HEIGHT / 2, TOTAL_WIDTH * 0.9);
         }
 
         if (this.gamePhase == GamePhase.SHOOT) {
@@ -77,7 +87,7 @@ class GameLoop {
     }
 
     private limit(n: number, min: number, max: number): number {
-        return (n < min) ? (min): ((n > max) ? max : n);
+        return (n < min) ? (min) : ((n > max) ? max : n);
     }
 
     public clicked(x: number, y: number): void {
@@ -88,6 +98,7 @@ class GameLoop {
             this.launchBall(posX, posY, x, this.limit(y, 0, TOTAL_HEIGHT - BLOCK_HEIGHT), MAX_BALLS);
             this.gamePhase = GamePhase.FLY;
             this.level.prepareNextShot();
+            this.flyBeginTime = window.performance.now();
         }
     }
 

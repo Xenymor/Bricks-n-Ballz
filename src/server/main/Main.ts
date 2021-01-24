@@ -4,6 +4,8 @@ class MyApp implements App {
         let file = new HTMLFile('index.html', {});
         user.sendAppContent(AppContent.overlayContent(file, 330, 570));
         user.getPersistence().addNumber("upgradePoints", 0);
+        //Client.playSound("sfx/Calming - AShamaluevMusic.mp3");
+        //https://www.ashamaluevmusic.com/ambient-music
     }
     /*    public onPublicMessage(msg:PublicMessage) {
             if (msg.getAuthor().isChannelModerator()) {
@@ -64,7 +66,7 @@ class MyApp implements App {
                 this.addUpgradePoints(parseInt(paramsArray[0]), this.getUserByNick(paramsArray[1]));
                 user.sendPrivateMessage("Set points of " + paramsArray[1] + " to " + this.getUserByNick(paramsArray[1]).getPersistence().getNumber("upgradePoints"));
             }
-        }
+        },
     }
 }
 
