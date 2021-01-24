@@ -705,6 +705,8 @@ var Main2 = /** @class */ (function () {
         Main2.game = new GameLoop(levelGenerator, context);
     };
     Main2.canvasClicked = function (event) {
+        var music = new Audio("sfx/Calming - AShamaluevMusic.mp3");
+        music.play();
         var x = event.clientX;
         var y = event.clientY;
         Main2.game.clicked(x, y);

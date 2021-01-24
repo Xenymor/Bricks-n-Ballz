@@ -9,7 +9,7 @@ const BLOCK_ROWS = 19;
 const TOTAL_WIDTH = BLOCK_WIDTH * BLOCK_COLUMNS;
 const TOTAL_HEIGHT = BLOCK_HEIGHT * BLOCK_ROWS;
 const blockColors = ["darkgreen", "green", "lightgreen", "goldenrod", "gold", "yellow", "orange", "orangered", "FireBrick", "red", "red"];
-const BLOCK_SOUND = [new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav"),new Audio("sfx/collision.wav")];
+const BLOCK_SOUND = [new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav"), new Audio("sfx/collision.wav")];
 let blockSoundIndex = 0;
 
 /*
@@ -72,6 +72,8 @@ class Main2 {
         Main2.game = new GameLoop(levelGenerator, context);
     }
     public static canvasClicked(event: MouseEvent) {
+        const music = new Audio("sfx/Calming - AShamaluevMusic.mp3");
+        music.play();
         const x = event.clientX;
         const y = event.clientY;
         Main2.game.clicked(x, y);
