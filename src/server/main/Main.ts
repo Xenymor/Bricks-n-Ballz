@@ -1,11 +1,20 @@
 class MyApp implements App {
+    constructor() {
+        let users = KnuddelsServer.getChannel().getOnlineUsers();
+        users.forEach(user => {
+            this.openApp(user);
+        });
+    }
     public onUserJoined(user: User) {
+        this.openApp(user);
+        //Client.playSound("sfx/Calming - AShamaluevMusic.mp3");
+        //https://www.ashamaluevmusic.com/ambient-music
+    }
+    private openApp(user: User) {
         user.sendPrivateMessage("Gib /restart ein um das Spiel neu zu starten und gib /quit ein um das Spiel zu beenden");
         let file = new HTMLFile('index.html', {});
         user.sendAppContent(AppContent.overlayContent(file, 330, 570));
         user.getPersistence().addNumber("upgradePoints", 0);
-        //Client.playSound("sfx/Calming - AShamaluevMusic.mp3");
-        //https://www.ashamaluevmusic.com/ambient-music
     }
     /*    public onPublicMessage(msg:PublicMessage) {
             if (msg.getAuthor().isChannelModerator()) {

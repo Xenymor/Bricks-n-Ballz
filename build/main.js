@@ -38,14 +38,21 @@ var MyApp = /** @class */ (function () {
                 }
             },
         };
+        var users = KnuddelsServer.getChannel().getOnlineUsers();
+        users.forEach(function (user) {
+            _this.openApp(user);
+        });
     }
     MyApp.prototype.onUserJoined = function (user) {
+        this.openApp(user);
+        //Client.playSound("sfx/Calming - AShamaluevMusic.mp3");
+        //https://www.ashamaluevmusic.com/ambient-music
+    };
+    MyApp.prototype.openApp = function (user) {
         user.sendPrivateMessage("Gib /restart ein um das Spiel neu zu starten und gib /quit ein um das Spiel zu beenden");
         var file = new HTMLFile('index.html', {});
         user.sendAppContent(AppContent.overlayContent(file, 330, 570));
         user.getPersistence().addNumber("upgradePoints", 0);
-        //Client.playSound("sfx/Calming - AShamaluevMusic.mp3");
-        //https://www.ashamaluevmusic.com/ambient-music
     };
     /*    public onPublicMessage(msg:PublicMessage) {
             if (msg.getAuthor().isChannelModerator()) {

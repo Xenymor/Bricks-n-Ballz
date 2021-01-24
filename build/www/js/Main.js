@@ -699,14 +699,21 @@ var Main2 = /** @class */ (function () {
     function Main2() {
     }
     Main2.main = function () {
+        BLOCK_SOUND.forEach(function (sound) {
+            sound.volume = 1;
+        });
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");
         var levelGenerator = new LevelGenerator(levels);
         Main2.game = new GameLoop(levelGenerator, context);
     };
     Main2.canvasClicked = function (event) {
-        var music = new Audio("sfx/Calming - AShamaluevMusic.mp3");
-        music.play();
+        if (!Main2.isMusicPlaying) {
+            var music = new Audio("sfx/Calming - AShamaluevMusic.mp3");
+            music.volume = 0.5;
+            music.play();
+            Main2.isMusicPlaying = true;
+        }
         var x = event.clientX;
         var y = event.clientY;
         Main2.game.clicked(x, y);
@@ -718,6 +725,7 @@ var Main2 = /** @class */ (function () {
         console.log("Test");
         this.game.abortBalls();
     };
+    Main2.isMusicPlaying = false;
     return Main2;
 }());
 function start() {

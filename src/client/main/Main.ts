@@ -64,7 +64,11 @@ class Main {
 
 class Main2 {
     static game: GameLoop;
+    static isMusicPlaying :boolean = false;
     public static main(): void {
+        BLOCK_SOUND.forEach(sound => {
+            sound.volume = 1;
+        });
         const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
         let context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
@@ -72,8 +76,12 @@ class Main2 {
         Main2.game = new GameLoop(levelGenerator, context);
     }
     public static canvasClicked(event: MouseEvent) {
-        const music = new Audio("sfx/Calming - AShamaluevMusic.mp3");
-        music.play();
+        if (!Main2.isMusicPlaying) {
+            const music = new Audio("sfx/Calming - AShamaluevMusic.mp3");
+            music.volume = 0.5;
+            music.play();
+            Main2.isMusicPlaying = true;
+        }
         const x = event.clientX;
         const y = event.clientY;
         Main2.game.clicked(x, y);
